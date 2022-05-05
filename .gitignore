@@ -1,0 +1,4 @@
+venv/
+dataset/
+*.mp4
+__pycache__/
