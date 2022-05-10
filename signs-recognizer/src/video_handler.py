@@ -19,7 +19,9 @@ def video_handler( recording_name) -> None:
         
         if ( ret == True ):
             # TODO: here apply changes on frame     
-            
+            # transfer to grayscale 
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
             cv2.imshow('Frame', frame) # show frame ov the image
             if cv2.waitKey(25) & 0xFF == ord('q'): # if we want to close frame window
 	            break
