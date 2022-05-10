@@ -1,4 +1,5 @@
-import cv2 
+import cv2
+from .  import model_creation 
 def video_handler( recording_name) -> None:
     """
         Handles reading video frame by frame by using openCV lib
@@ -10,7 +11,7 @@ def video_handler( recording_name) -> None:
         -  int : if you want to use your camera pass 0 as parameter
 
     """
-
+    our_model = model_creation.RecognizerModel(load_model=True)
     capture = cv2.VideoCapture(recording_name) # initialize capture by creating VideoCapture Object
     if ( capture.isOpened() == False ): # check if we have managed to open a camera
         print("Error, couldn't open recording, pls check your file.")
@@ -21,7 +22,7 @@ def video_handler( recording_name) -> None:
             # TODO: here apply changes on frame     
             # transfer to grayscale 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
+            make_image_changes(gray, our_model)
             cv2.imshow('Frame', frame) # show frame ov the image
             if cv2.waitKey(25) & 0xFF == ord('q'): # if we want to close frame window
 	            break
@@ -30,7 +31,7 @@ def video_handler( recording_name) -> None:
     capture.release() # release used resources 
     cv2.destroyAllWindows()
 
-def make_image_changes(image: list ) -> any:
+def make_image_changes(image: list, model) -> any:
     """
         Function that will apply changes on image 
         TODO: write function that will perform that changes
@@ -42,4 +43,5 @@ def make_image_changes(image: list ) -> any:
         -------
         Returns numpy array with marked changes (At least I hope so)
     """
+    model.predict(image)
     pass
